@@ -1,16 +1,20 @@
+using System;
+using Gtk;
+
 namespace HashChecker;
 
-static class Program
+public static class Program
 {
-    /// <summary>
-    ///  The main entry point for the application.
-    /// </summary>
-    [STAThread]
-    static void Main()
+    public static void Main(string[] args)
     {
-        // To customize application configuration such as set high DPI settings or default font,
-        // see https://aka.ms/applicationconfiguration.
-        ApplicationConfiguration.Initialize();
-        Application.Run(new Form1());
-    }    
+        Application.Init();
+        var app = new Application("org.hashchecker.app", GLib.ApplicationFlags.None);
+        app.Register(GLib.Cancellable.Current);
+
+        var win = new MainWindow();
+        app.AddWindow(win);
+        win.ShowAll();
+
+        Application.Run();
+    }
 }
