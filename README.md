@@ -1,98 +1,102 @@
 # HashChecker - 文件校验和计算工具
 
-一个简单易用的跨平台桌面应用程序，用于计算文件的校验和（哈希值），支持多种哈希算法。
+![.NET Version](https://img.shields.io/badge/.NET-10.0-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey)
+
+一个使用 C# 和 GTK3 开发的跨平台桌面应用程序，用于计算文件的哈希校验和。支持多种哈希算法，提供直观的图形界面。
 
 ## 功能特性
 
-- 📁 选择任意文件进行校验和计算
-- 🔐 支持多种哈希算法：
-  - MD5
-  - SHA1
-  - SHA256
-  - SHA384
-  - SHA512
-- 📋 一键复制校验和结果到剪贴板
-- 🎨 简洁直观的用户界面
-- 🌐 跨平台支持（Windows、Linux 等）
+- 支持多种哈希算法：MD5、SHA1、SHA256、SHA384、SHA512
+- 直观的图形界面：基于 GTK3，操作简单便捷
+- 一键复制结果：快速复制计算出的校验和到剪贴板
+- 跨平台支持：在 Linux、Windows 和 macOS 上均可运行
 
-## 技术栈
+## 系统要求
 
-- .NET 10.0
-- GTK# (GTK3)
-- C# 10.0
+### .NET SDK
+- .NET 10.0 SDK 或更高版本
 
-## 环境要求
+### GTK3 依赖
 
-- **操作系统**:
-  - Windows 10 或更高版本
-  - Linux（需安装 GTK3）
-- **运行时**: .NET 10.0 Runtime（如果使用独立发布的版本则无需安装）
-
-### Windows 环境准备
-
-在 Windows 上运行 GTK# 应用程序，需要安装 GTK 运行时环境：
-
-1. 下载并安装 [GTK for Windows Runtime](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer)
-2. 或者使用 MSYS2 安装：
-   ```bash
-   pacman -S mingw-w64-x86_64-gtk3
-   ```
-
-### Linux 环境准备
-
-在 Linux 上，确保已安装 GTK3：
-
+#### Linux (Ubuntu/Debian)
 ```bash
-# Ubuntu/Debian
-sudo apt-get install libgtk-3-dev
+sudo apt-get update
+sudo apt-get install -y libgtk-3-0
+```
 
-# Fedora
-sudo dnf install gtk3-devel
+#### Linux (Fedora/RHEL)
+```bash
+sudo dnf install gtk3
+```
 
-# Arch Linux
+#### Linux (Arch Linux)
+```bash
 sudo pacman -S gtk3
 ```
 
-## 快速开始
-
-### 运行项目
-
-如果您已安装 .NET SDK ，可以直接运行：
-
+#### macOS
+```bash
+brew install gtk+3
 ```
+
+#### Windows
+GTK3 通常随 NuGet 包自动安装，无需额外配置。
+
+## 安装和运行
+
+### 1. 克隆仓库
+
+```bash
+git clone https://github.com/gcnyin/HashChecker.git
+cd HashChecker
+```
+
+### 2. 还原依赖
+
+```bash
+dotnet restore
+```
+
+### 3. 构建项目
+
+```bash
+dotnet build
+```
+
+### 4. 运行程序
+
+开发环境运行：
+
+```bash
 dotnet run
 ```
 
-### 编译项目
+### 5. 发布为独立可执行文件（可选）
 
-```
-dotnet build -c Release
-```
+发布为单文件可执行程序（包含 .NET 运行时）：
 
-结果在 `bin/Release/net10.0` 中
-
-打包成单体文件（Windows平台）
-
-```
-dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+Linux:
+```bash
+dotnet publish -c Release -r linux-x64 --self-contained true -p:PublishSingleFile=true
 ```
 
-## 开发
+Windows:
+```bash
+dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+```
 
-### 环境配置
+macOS:
+```bash
+# m1
+dotnet publish -c Release -r osx-arm64 --self-contained true -p:PublishSingleFile=true
+# intel
+dotnet publish -c Release -r osx-x64 --self-contained true -p:PublishSingleFile=true
+```
 
-确保已安装以下工具：
-- [.NET SDK 10.0](https://dotnet.microsoft.com/download)
-- GTK 运行时环境（根据您的操作系统）
-
-### 代码说明
-
-项目使用 GTK# (GTK3 的 .NET 绑定) 构建跨平台图形界面：
-
-- **MainWindow.cs**: 主窗口类，包含所有 UI 控件和事件处理
-- **Program.cs**: 应用程序入口，初始化 GTK 应用
-- 哈希计算逻辑使用 .NET 的 `System.Security.Cryptography` 命名空间
+发布后的可执行文件位于 `bin/Release/net10.0/{runtime}/publish/` 目录下。
 
 ## 许可证
 
-[MIT License](LICENSE)
+本项目采用 MIT 许可证。详见 [LICENSE](LICENSE) 文件。
